@@ -9,6 +9,7 @@ import { BoardsComponent } from './pages/boards/boards.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 
 import { OverlayModule } from "@angular/cdk/overlay";
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { OverlayModule } from "@angular/cdk/overlay";
   imports: [
     BrowserModule,
     AppRoutingModule,
-    OverlayModule
+    OverlayModule,
+    FontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
