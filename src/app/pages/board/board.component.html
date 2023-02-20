@@ -9,8 +9,13 @@
         <div class="flex justify-between py-1">
           <h3 class="text-sm font-bold ml-2">To Do</h3>
         </div>
-        <div class="text-sm mt-2 min-h-[2.5rem]" cdkDropList (cdkDropListDropped)="drop($event)" [cdkDropListData]="todos">
-          <div *ngFor="let todo of todos" cdkDrag
+        <div
+        id="todo"
+        class="text-sm mt-2 min-h-[2.5rem]"
+        cdkDropListConnectedTo="[doing, done]"
+        cdkDropList (cdkDropListDropped)="drop($event)"
+        [cdkDropListData]="todos">
+          <div *ngFor="let todo of todos" cdkDrag [cdkDragData]="todos"
             class="bg-white shadow p-2 rounded mt-2 border-b border-x-gray-300 cursor-pointer hover:bg-gray-400">
             {{ todo.title }}
           </div>
@@ -20,8 +25,14 @@
         <div class="flex justify-between py-1">
           <h3 class="text-sm font-bold ml-2">Doing</h3>
         </div>
-        <div class="text-sm mt-2 min-h-[2.5rem]" cdkDropList (cdkDropListDropped)="drop($event)" [cdkDropListData]="doing">
-          <div *ngFor="let todo of doing" cdkDrag
+        <div
+        id="doing"
+        class="text-sm mt-2 min-h-[2.5rem]"
+        cdkDropListConnectedTo="todo"
+        cdkDropList
+        (cdkDropListDropped)="drop($event)"
+        [cdkDropListData]="doing">
+          <div *ngFor="let todo of doing" cdkDrag [cdkDragData]="doing"
             class="bg-white shadow p-2 rounded mt-2 border-b border-x-gray-300 cursor-pointer hover:bg-gray-400">
             {{ todo.title }}
           </div>
@@ -31,7 +42,12 @@
         <div class="flex justify-between py-1">
           <h3 class="text-sm font-bold ml-2">Done</h3>
         </div>
-        <div class="text-sm mt-2 min-h-[2.5rem]" cdkDropList (cdkDropListDropped)="drop($event)" [cdkDropListData]="done">
+        <div
+        id="done"
+        class="text-sm mt-2 min-h-[2.5rem]"
+        cdkDropList
+        (cdkDropListDropped)="drop($event)"
+        [cdkDropListData]="done">
           <div *ngFor="let todo of done" cdkDrag
             class="bg-white shadow p-2 rounded mt-2 border-b border-x-gray-300 cursor-pointer hover:bg-gray-400">
             {{ todo.title }}

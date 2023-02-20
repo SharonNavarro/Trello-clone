@@ -23,12 +23,12 @@ import { BoardComponent } from './pages/board/board.component';
     BoardComponent,
   ],
   imports: [
+    DragDropModule,
     BrowserModule,
     OverlayModule,
     AppRoutingModule,
     FontAwesomeModule,
-    CdkAccordionModule,
-    DragDropModule
+    CdkAccordionModule
   ],
   providers: [],
   bootstrap: [AppComponent]
