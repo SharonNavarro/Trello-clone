@@ -12,7 +12,7 @@
           </div>
           <div class="text-sm mt-2 min-h-[2.5rem]" [id]="column.title" cdkDropList [cdkDropListConnectedTo]="connectedTo" (cdkDropListDropped)="drop($event)"
             [cdkDropListData]="column.todos">
-            <div *ngFor="let todo of column.todos" cdkDrag
+            <div (click)="openDialog()" *ngFor="let todo of column.todos" cdkDrag
               class="bg-white shadow p-2 rounded mt-2 border-b border-x-gray-300 cursor-pointer hover:bg-gray-400">
               {{ todo.title }}
             </div>
