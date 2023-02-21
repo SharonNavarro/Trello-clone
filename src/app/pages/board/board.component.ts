@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
-import { ToDo } from '../../models/todo.model';
+import { ToDo, Column } from '../../models/todo.model';
 
 @Component({
   selector: 'app-board',
@@ -22,33 +22,53 @@ import { ToDo } from '../../models/todo.model';
 })
 export class BoardComponent implements OnInit {
 
-  todos: ToDo[] = [
+  connectedTo: string[] = [];
+
+  columns: Column[] = [
     {
-      id: '1',
-      title: 'Make dishes'
+      title: 'ToDo',
+      todos: [
+        {
+          id: '1',
+          title: 'Make dishes'
+        },
+        {
+          id: '2',
+          title: 'Buy a unicorn'
+        }
+      ]
     },
     {
-      id: '2',
-      title: 'Buy a unicorn'
-    }
-  ];
-
-  doing: ToDo[] = [
+      title: 'Doing',
+      todos: [
+        {
+          id: '3',
+          title: 'Watch Angular Path in Platzi'
+        }
+      ]
+    },
     {
-      id: '3',
-      title: 'Watch Angular Path in Platzi'
+      title: 'Done',
+      todos: [
+        {
+          id: '4',
+          title: 'Play video games'
+        }
+      ]
     }
   ];
 
-  done: ToDo[] = [
-  ];
+  todos: ToDo[] = [];
+  doing: ToDo[] = [];
+  done: ToDo[] = [];
 
   constructor() { }
 
   ngOnInit(): void {
+    this.toConnected();
   }
 
-  drop(event: CdkDragDrop<ToDo[]>) {
+  drop(event: CdkDragDrop<any>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
@@ -61,5 +81,21 @@ export class BoardComponent implements OnInit {
     }
 
   }
+
+  addColumn() {
+    this.columns.push({
+      title: 'New Column',
+      todos: []
+    });
+    this.toConnected();
+  }
+
+  toConnected() {
+    for (let column of this.columns) {
+      this.connectedTo.push(column.title);
+    };
+  }
+
+
 
 }

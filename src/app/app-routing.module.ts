@@ -6,6 +6,11 @@ import { BoardComponent } from './pages/board/board.component';
 
 const routes: Routes = [
   {
+    path:'',
+    redirectTo: '/login',
+    pathMatch: 'full',
+  },
+  {
     path: 'login',
     component: LoginComponent
   },
