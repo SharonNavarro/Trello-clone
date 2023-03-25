@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DialogRef } from '@angular/cdk/dialog';
-import { faClose, faCheckToSlot, faBars, faUser, faTag, faCheckSquare, faClock } from '@fortawesome/free-solid-svg-icons';
+import {faBars, faUser, faTag, faCheckSquare, faClock, faDoorClosed, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-todo-dialog',
@@ -8,8 +8,8 @@ import { faClose, faCheckToSlot, faBars, faUser, faTag, faCheckSquare, faClock }
 })
 export class TodoDialogComponent implements OnInit {
 
-  faClose = faClose;
-  faCheckToSlot = faCheckToSlot;
+  faClose = faDoorClosed;
+  faCheckToSlot = faCheckCircle;
   faBars = faBars;
   faUser = faUser;
   faTag = faTag;
