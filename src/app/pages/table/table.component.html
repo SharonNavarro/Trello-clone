@@ -1,35 +1,52 @@
 <div class="flex flex-col h-screen">
   <app-navbar></app-navbar>
   <div class="w-full grow bg-white-600 p-6">
-    <table cdk-table [dataSource]="products">
+    <!-- <table cdk-table [dataSource]="products">
       <tr cdk-header-row *cdkHeaderRowDef="columns"></tr>
-      <tr cdk-row *cdkRowDef="let row; columns: columns"></tr>
+      <tr cdk-row *cdkRowDef="let row; columns: columns"></tr> -->
 
       <!-- Id Column -->
-      <ng-container cdkColumnDef="id">
+      <!-- <ng-container cdkColumnDef="id">
         <th cdk-header-cell *cdkHeaderCellDef>Id.</th>
         <td cdk-cell *cdkCellDef="let row">{{row.id}}</td>
-      </ng-container>
+      </ng-container> -->
 
       <!-- Tittle Column -->
-      <ng-container cdkColumnDef="title">
+      <!-- <ng-container cdkColumnDef="title">
         <th cdk-header-cell *cdkHeaderCellDef>Tittle</th>
         <td cdk-cell *cdkCellDef="let row">{{row.title}}</td>
-      </ng-container>
+      </ng-container> -->
 
       <!-- Price Column -->
-      <ng-container cdkColumnDef="price">
+      <!-- <ng-container cdkColumnDef="price">
         <th cdk-header-cell *cdkHeaderCellDef>Price</th>
         <td cdk-cell *cdkCellDef="let row">{{row.price}}</td>
-      </ng-container>
+      </ng-container> -->
 
       <!-- Cover Column -->
-      <ng-container cdkColumnDef="cover">
+      <!-- <ng-container cdkColumnDef="cover">
         <th cdk-header-cell *cdkHeaderCellDef>Cover</th>
         <td cdk-cell *cdkCellDef="let row">
           <img class="w-64" [src]="row.images[0]" alt="">
         </td>
       </ng-container>
+    </table> -->
+
+    <table cdk-table [dataSource]="products">
+      <!-- Position Column -->
+      <ng-container *ngFor="let col of columns">
+        <ng-container [cdkColumnDef]="col">
+          <th cdk-header-cell *cdkHeaderCellDef>{{ col }}</th>
+          <td cdk-cell *cdkCellDef="let product">
+            <img *ngIf="product[col] == product['cover']; else elseText" class="w-64" [src]="product.images[0]" alt="">
+            <ng-template #elseText>
+              {{ product[col] }}
+            </ng-template>
+          </td>
+        </ng-container>
+      </ng-container>
+      <tr cdk-header-row *cdkHeaderRowDef="columns"></tr>
+      <tr cdk-row *cdkRowDef="let row; columns: columns"></tr>
     </table>
   </div>
 </div>
