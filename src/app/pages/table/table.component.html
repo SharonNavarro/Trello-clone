@@ -33,7 +33,7 @@
       </ng-container>
     </table> -->
 
-    <table class="w-full text-sm text-left text-gray-500" cdk-table [dataSource]="products">
+    <table class="w-full text-sm text-left text-gray-500" cdk-table [dataSource]="dataSource">
       <!-- Position Column -->
       <ng-container *ngFor="let col of columns">
         <ng-container [cdkColumnDef]="col">
