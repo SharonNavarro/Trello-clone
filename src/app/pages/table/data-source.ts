@@ -7,20 +7,20 @@ export class DataSourceProduct extends DataSource<Product> {
   data = new BehaviorSubject<Product[]>([]);
   originalData: Product[] = [];
 
-  connect(): Observable<Product[]>{
+  connect(): Observable<Product[]> {
     return this.data;
   }
 
-  init(products: Product[]){
+  init(products: Product[]) {
     this.originalData = products;
     this.data.next(products);
   }
 
-  getTotal(){
+  getTotal() {
     const products = this.data.getValue();
     return products
-    .map(item => item.price)
-    .reduce((price, total) => price + total, 0);
+      .map(item => item.price)
+      .reduce((price, total) => price + total, 0);
   }
 
   update(id: Product['id'], changes: Partial<Product>) {
@@ -29,7 +29,7 @@ export class DataSourceProduct extends DataSource<Product> {
     // 0 === false - Me devuelve la posicion,
     // si la posicion es 0, la condicional lo interpreta como false
     console.log(productIndex);
-    if(productIndex !== -1) {
+    if (productIndex !== -1) {
       products[productIndex] = {
         ...products[productIndex],
         ...changes,
@@ -40,9 +40,10 @@ export class DataSourceProduct extends DataSource<Product> {
   }
 
   find(query: string) {
-    const newProducts = this.originalData.filter(item => item.title.toLowerCase().includes(query.toLowerCase()));
+    const newProducts = this.originalData.filter(item => item.title.toLowerCase().includes(query.toLowerCase())
+    || item.id.toString().includes(query) || item.price.toString().includes(query));
     this.data.next(newProducts);
   }
 
-  disconnect() {}
+  disconnect() { }
 }
