@@ -9,7 +9,7 @@ import { DataSourceProduct } from "./data-source";
 export class TableComponent implements OnInit {
 
   dataSource = new DataSourceProduct();
-  columns: string[] = ['id', 'title', 'price', 'cover'];
+  columns: string[] = ['id', 'title', 'price', 'cover', 'actions'];
   total: number = 0;
 
   constructor(
@@ -22,6 +22,10 @@ export class TableComponent implements OnInit {
       this.dataSource.init(data);
       this.total = this.dataSource.getTotal();
     })
+  }
+
+  update(product: Product) {
+    this.dataSource.update(product.id, {price: 20})
   }
 
 }
