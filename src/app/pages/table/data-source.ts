@@ -5,12 +5,14 @@ import { Product } from "../../models/product.model";
 export class DataSourceProduct extends DataSource<Product> {
 
   data = new BehaviorSubject<Product[]>([]);
+  originalData: Product[] = [];
 
   connect(): Observable<Product[]>{
     return this.data;
   }
 
   init(products: Product[]){
+    this.originalData = products;
     this.data.next(products);
   }
 
@@ -35,6 +37,11 @@ export class DataSourceProduct extends DataSource<Product> {
       console.log(products);
       this.data.next(products);
     }
+  }
+
+  find(query: string) {
+    const newProducts = this.originalData.filter(item => item.title.toLowerCase().includes(query.toLowerCase()));
+    this.data.next(newProducts);
   }
 
   disconnect() {}
