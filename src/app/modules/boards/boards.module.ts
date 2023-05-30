@@ -6,6 +6,7 @@ import { SharedModule } from '../shared/shared.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CdkAccordionModule } from '@angular/cdk/accordion';
+import { BoardsRoutingModule } from './boards-routing.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { CdkAccordionModule } from '@angular/cdk/accordion';
     SharedModule,
     DragDropModule,
     FontAwesomeModule,
-    CdkAccordionModule
+    CdkAccordionModule,
+    BoardsRoutingModule
   ]
 })
 export class BoardsModule { }

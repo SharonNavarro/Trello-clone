@@ -1,36 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BoardsComponent } from './modules/boards/pages/boards/boards.component';
-import { LoginComponent } from './modules/auth/pages/login/login.component';
-import { BoardComponent } from './modules/boards/pages/board/board.component';
-import { ScrollComponent } from './modules/scroll/pages/scroll/scroll.component';
-import { TableComponent } from './modules/table/pages/table/table.component';
 
 const routes: Routes = [
   {
     path:'',
-    redirectTo: '/login',
-    pathMatch: 'full',
+    loadChildren: () => import('./modules/auth/auth.module').then((m) => m.AuthModule)
   },
   {
-    path: 'login',
-    component: LoginComponent
-  },
-  {
-    path: 'boards',
-    component: BoardsComponent
-  },
-  {
-    path: 'board',
-    component: BoardComponent
-  },
-  {
-    path: 'scroll',
-    component: ScrollComponent
-  },
-  {
-    path: 'table',
-    component: TableComponent
+    path: '',
+    loadChildren: () => import('./modules/layout/layout.module').then((m) => m.LayoutModule)
   }
 ];
 
