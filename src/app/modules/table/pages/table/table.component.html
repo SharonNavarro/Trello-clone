@@ -53,7 +53,9 @@
             <img *ngIf="product[col] == product['cover'] && col != 'actions'; else elseText" class="w-20" [src]="product.images[0]" alt="">
             <ng-template #elseText>
               <div *ngIf="col != 'actions'">{{ product[col] }}</div>
-              <div *ngIf="col == 'actions'"><app-btn (click)="update(product)">Update</app-btn></div>
+              <div *ngIf="col == 'actions'">
+                <app-btn (click)="update(product)">Update</app-btn>
+              </div>
             </ng-template>
           </td>
           <td cdk-footer-cell *cdkFooterCellDef class="py-3 px-6">

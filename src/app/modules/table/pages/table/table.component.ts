@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { FormControl } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { Product } from "../../models/product.model";
+import { Product } from "../../../../models/product.model";
 import { DataSourceProduct } from "./data-source";
 import { debounceTime } from 'rxjs';
 @Component({

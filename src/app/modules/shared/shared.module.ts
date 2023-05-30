@@ -13,7 +13,9 @@ import { OverlayModule } from '@angular/cdk/overlay';
     NavbarComponent
   ],
   exports: [
-    NavbarComponent
+    NavbarComponent,
+    TodoDialogComponent,
+    BtnComponent
   ],
   imports: [
     CommonModule,
