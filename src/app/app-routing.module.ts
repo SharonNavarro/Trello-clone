@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BoardsComponent } from './pages/boards/boards.component';
-import { LoginComponent } from './pages/login/login.component';
+import { LoginComponent } from './modules/auth/pages/login/login.component';
 import { BoardComponent } from './pages/board/board.component';
 import { ScrollComponent } from './pages/scroll/scroll.component';
 import { TableComponent } from './pages/table/table.component';
