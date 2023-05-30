@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Dialog } from '@angular/cdk/dialog';
-import { TodoDialogComponent } from "../../components/todo-dialog/todo-dialog.component";
-import { ToDo, Column } from '../../models/todo.model';
+import { TodoDialogComponent } from "./../../../shared/components/todo-dialog/todo-dialog.component";
+import { ToDo, Column } from '../../../../models/todo.model';
 
 @Component({
   selector: 'app-board',

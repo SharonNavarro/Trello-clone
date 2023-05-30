@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { BoardsComponent } from './pages/boards/boards.component';
+import { BoardsComponent } from './modules/boards/pages/boards/boards.component';
 import { LoginComponent } from './modules/auth/pages/login/login.component';
-import { BoardComponent } from './pages/board/board.component';
+import { BoardComponent } from './modules/boards/pages/board/board.component';
 import { ScrollComponent } from './pages/scroll/scroll.component';
 import { TableComponent } from './pages/table/table.component';
 
