@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-btn',
@@ -7,8 +8,12 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class BtnComponent implements OnInit {
 
+  @Input() disabled = false;
+  @Input() loading = false;
   @Input() typeBtn: 'button' | 'reset' | 'submit' = 'button';
   @Input() color: 'success' | 'primary' | 'danger' | 'light' | 'sky' = 'primary';
+
+  faSpinner = faSpinner;
 
   mapColors = {
     success: {
