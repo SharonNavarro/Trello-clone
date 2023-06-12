@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Dialog } from '@angular/cdk/dialog';
-import { TodoDialogComponent } from "./../../../shared/components/todo-dialog/todo-dialog.component";
-import { ToDo, Column } from '../../../../models/todo.model';
+import { TodoDialogComponent } from "@boards/components/todo-dialog/todo-dialog.component";
+import { ToDo, Column } from '@models/todo.model';
 
 @Component({
   selector: 'app-board',
@@ -21,10 +21,7 @@ import { ToDo, Column } from '../../../../models/todo.model';
     `
   ]
 })
-export class BoardComponent implements OnInit {
-
-  connectedTo: string[] = [];
-
+export class BoardComponent {
   columns: Column[] = [
     {
       title: 'ToDo',
@@ -67,13 +64,13 @@ export class BoardComponent implements OnInit {
     private dialog: Dialog
   ) { }
 
-  ngOnInit(): void {
-    this.toConnected();
-  }
-
-  drop(event: CdkDragDrop<any>) {
+  drop(event: CdkDragDrop<ToDo[]>) {
     if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
     } else {
       transferArrayItem(
         event.previousContainer.data,
@@ -90,13 +87,6 @@ export class BoardComponent implements OnInit {
       title: 'New Column',
       todos: []
     });
-    this.toConnected();
-  }
-
-  toConnected() {
-    for (let column of this.columns) {
-      this.connectedTo.push(column.title);
-    };
   }
 
   openDialog(todo: ToDo) {

@@ -10,9 +10,9 @@ const routes: Routes = [
     component: BoardsComponent
   },
   {
-    path: 'board',
+    path: ':id',
     component: BoardComponent
-  },
+  }
 ];
 
 @NgModule({
