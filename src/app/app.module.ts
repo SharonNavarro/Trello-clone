@@ -13,10 +13,8 @@ import { SharedModule} from './modules/shared/shared.module';
     AppComponent
   ],
   imports: [
-    SharedModule,
     BrowserModule,
     AppRoutingModule,
-    DialogModule,
     HttpClientModule,
     ReactiveFormsModule
   ],
