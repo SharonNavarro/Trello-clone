@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { environment } from '@environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -28,6 +28,13 @@ export class AuthService {
       email,
       password
     })
+  }
+
+  registerAndLogin(name: string, email: string, password: string) {
+    return this.register(name, email, password)
+    .pipe(
+      switchMap(() => this.login(email, password))
+    );
   }
 
   isAvailable(email:string) {
