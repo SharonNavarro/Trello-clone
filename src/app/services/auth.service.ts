@@ -16,17 +16,23 @@ export class AuthService {
   ) { }
 
   login(email: string, password: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/api/v1/auth/login`, {
+    return this.http.post(`${this.apiUrl}/auth/login`, {
       email,
       password
     })
   }
 
   register(name: string, email: string, password: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/api/v1/auth/register`, {
+    return this.http.post(`${this.apiUrl}/auth/register`, {
       name,
       email,
       password
+    })
+  }
+
+  isAvailable(email:string) {
+    return this.http.post<{isAvailable: boolean}>(`${this.apiUrl}/auth/is-available`, {
+      email
     })
   }
 }
