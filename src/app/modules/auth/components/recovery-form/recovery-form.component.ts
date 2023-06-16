@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 import { CustomValidators } from '@utils/validators';
+import { AuthService } from '@services/auth.service';
+import { RequestStatus } from '@models/request-status.model';
 
 @Component({
   selector: 'app-recovery-form',
@@ -24,11 +28,37 @@ export class RecoveryFormComponent {
   faEye = faEye;
   faEyeSlash = faEyeSlash;
   showPassword = false;
+  token: string = '';
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private route: ActivatedRoute,
+    private router: Router
+    ) {
+      this.route.queryParamMap.subscribe(params => {
+        const token = params.get('token');
+        if (token) {
+          this.token = token;
+        } else {
+          this.router.navigate(['/login']);
+        }
+      })
+    }
 
   recovery() {
     if (this.form.valid) {
+      const { newPassword } = this.form.getRawValue();
+      this.authService.changePassword(this.token, newPassword)
+      .subscribe({
+        next: () => {
+          this.status = 'success';
+          this.router.navigate(['/login']);
+        },
+        error: () => {
+          this.status = 'failed';
+        }
+      })
       // Todo
     } else {
       this.form.markAllAsTouched();
