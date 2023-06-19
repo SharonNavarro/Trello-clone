@@ -6,6 +6,10 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { AuthService } from '@services/auth.service';
+import { AuthGuard } from '@guards/auth.guard';
+import { TokenService } from '@services/token.service';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -16,7 +20,11 @@ import { AppComponent } from './app.component';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [
+    AuthService,
+    AuthGuard,
+    TokenService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

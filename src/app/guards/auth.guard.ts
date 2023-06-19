@@ -3,9 +3,7 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTr
 import { TokenService } from '@services/token.service';
 import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class AuthGuard implements CanActivate {
 
   constructor(

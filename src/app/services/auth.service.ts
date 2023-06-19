@@ -9,9 +9,7 @@ import { TokenService } from './token.service';
 
 import { ResponseLogin } from '@models/auth.model'
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class AuthService {
 
   apiUrl = environment.API_URL;
