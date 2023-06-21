@@ -7,9 +7,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { AuthService } from '@services/auth.service';
-import { AuthGuard } from '@guards/auth.guard';
 import { TokenService } from '@services/token.service';
-import { RedirectGuard } from '@guards/redirect.guard';
+import { UsersService } from '@services/users.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +22,8 @@ import { RedirectGuard } from '@guards/redirect.guard';
   ],
   providers: [
     AuthService,
-    TokenService
+    TokenService,
+    UsersService
   ],
   bootstrap: [AppComponent]
 })
