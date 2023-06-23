@@ -13,7 +13,8 @@ import { AuthService } from '@services/auth.service';
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
 })
-export class NavbarComponent implements OnInit{
+export class NavbarComponent {
+
   faBell = faBell;
   faInfoCircle = faInfoCircle;
   faClose = faClone;
@@ -22,20 +23,12 @@ export class NavbarComponent implements OnInit{
   isOpenOverlayAvatar = false;
   isOpenOverlayBoards = false;
 
-  user: User | null = null;
+  user$= this.authService.user$;
 
   constructor(
     private authService: AuthService,
     private router: Router
   ) {}
-
-  ngOnInit(): void {
-    this.authService.getProfile().subscribe({
-      next: (res) => {
-        this.user = res;
-      }
-    })
-  }
 
   logout() {
     this.authService.logout();

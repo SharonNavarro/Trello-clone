@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { environment } from '@environments/environment';
 
-import { Observable, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, Observable, switchMap, tap } from 'rxjs';
 
 import { TokenService } from './token.service';
 
@@ -14,6 +14,7 @@ import { User } from '@models/user.model';
 export class AuthService {
 
   apiUrl = environment.API_URL;
+  user$ = new BehaviorSubject<User | null>(null);
 
   constructor(
     private http: HttpClient,
@@ -73,6 +74,10 @@ export class AuthService {
   getProfile() {
     const token = this.tokenService.getToken();
     return this.http.get<User>(`${this.apiUrl}/auth/profile`, this.httpOptions(token)
+    ).pipe(
+      tap(user => {
+        this.user$.next(user);
+      })
     );
   }
 
