@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { AuthService } from '@services/auth.service';
 import { TokenService } from '@services/token.service';
 import { UsersService } from '@services/users.service';
+import { TokenInterceptor } from '@interceptors/token.interceptor';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,10 @@ import { UsersService } from '@services/users.service';
   providers: [
     AuthService,
     TokenService,
-    UsersService
+    UsersService,
+    {
+      provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

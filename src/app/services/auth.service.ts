@@ -9,6 +9,7 @@ import { TokenService } from './token.service';
 
 import { ResponseLogin } from '@models/auth.model'
 import { User } from '@models/user.model';
+import { checkToken } from '@interceptors/token.interceptor';
 
 @Injectable()
 export class AuthService {
@@ -20,13 +21,6 @@ export class AuthService {
     private http: HttpClient,
     private tokenService: TokenService
   ) { }
-
-  httpOptions = (token: string) => ({
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Authorization' : `Bearer ${token}`
-    })
-  });
 
   login(email: string, password: string): Observable<any> {
     return this.http.post<ResponseLogin>(`${this.apiUrl}/auth/login`, {
@@ -72,8 +66,7 @@ export class AuthService {
   }
 
   getProfile() {
-    const token = this.tokenService.getToken();
-    return this.http.get<User>(`${this.apiUrl}/auth/profile`, this.httpOptions(token)
+    return this.http.get<User>(`${this.apiUrl}/auth/profile`, { context: checkToken()}
     ).pipe(
       tap(user => {
         this.user$.next(user);
