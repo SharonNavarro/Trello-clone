@@ -22,6 +22,7 @@ export class UsersTableComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.getUsers();
     this.usersService.getUsers().subscribe({
       next: (value) => {
         this.dataSource.init(value);
@@ -29,6 +30,13 @@ export class UsersTableComponent implements OnInit {
     });
     this.authService.user$.subscribe(user => {
       this.user = user;
+    })
+  }
+
+  getUsers() {
+    this.usersService.getUsers()
+    .subscribe(users => {
+      this.dataSource.init(users);
     })
   }
 

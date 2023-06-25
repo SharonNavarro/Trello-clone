@@ -31,9 +31,24 @@ export class AuthService {
         tap({
           next: (response) => {
             this.tokenService.saveToken(response.access_token);
+            this.tokenService.saveRefreshToken(response.refresh_token);
           }
         })
       )
+  }
+
+  refreshToken(refreshToken: string): Observable<any> {
+    return this.http.post<ResponseLogin>(`${this.apiUrl}/auth/refresh-token`, {
+      refreshToken
+    })
+    .pipe(
+      tap({
+        next: (response) => {
+          this.tokenService.saveToken(response.access_token);
+          this.tokenService.saveRefreshToken(response.refresh_token);
+        }
+      })
+    )
   }
 
   register(name: string, email: string, password: string): Observable<any> {

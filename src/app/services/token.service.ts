@@ -27,8 +27,41 @@ export class TokenService {
     this._cookies.delete("token", '/');
   }
 
+  saveRefreshToken(token: string) {
+    // localStorage.setItem('token', token);
+    // setCookie('token', token, {expires: 365, path: '/'});
+    this._cookies.set("refresh-token", token, 1, '/');
+  }
+
+  getRefreshToken() {
+    // return localStorage.getItem('token');
+    // const token = getCookie("token");
+    return this._cookies.get("refresh-token");
+  }
+
+  removeRefreshToken() {
+    // localStorage.removeItem('token');
+    // removeCookie("token");
+    this._cookies.delete("refresh-token", '/');
+  }
+
   isValidToken() {
     const token = this.getToken();
+    if(!token) {
+      return false;
+    }
+    const decodeToken = jwt_decode<JwtPayload>(token);
+    if(decodeToken && decodeToken?.exp) {
+      const tokenDate = new Date(0);
+      tokenDate.setUTCSeconds(decodeToken.exp);
+      const today = new Date();
+      return tokenDate.getTime() > today.getTime();
+    }
+    return false
+  }
+
+  isValidRefreshToken() {
+    const token = this.getRefreshToken();
     if(!token) {
       return false;
     }
