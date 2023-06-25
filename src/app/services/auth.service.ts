@@ -10,6 +10,7 @@ import { TokenService } from './token.service';
 import { ResponseLogin } from '@models/auth.model'
 import { User } from '@models/user.model';
 import { checkToken } from '@interceptors/token.interceptor';
+import { MeService } from './me.service';
 
 @Injectable()
 export class AuthService {
@@ -19,7 +20,8 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private tokenService: TokenService
+    private tokenService: TokenService,
+    private meService: MeService
   ) { }
 
   login(email: string, password: string): Observable<any> {
@@ -80,9 +82,18 @@ export class AuthService {
     return this.http.post<{ isAvailable: boolean }>(`${this.apiUrl}/auth/change-password`, { token, newPassword });
   }
 
+  // getProfile() {
+  //   return this.http.get<User>(`${this.apiUrl}/auth/profile`, { context: checkToken()}
+  //   ).pipe(
+  //     tap(user => {
+  //       this.user$.next(user);
+  //     })
+  //   );
+  // }
+
   getProfile() {
-    return this.http.get<User>(`${this.apiUrl}/auth/profile`, { context: checkToken()}
-    ).pipe(
+    return this.meService.getMeProfile()
+    .pipe(
       tap(user => {
         this.user$.next(user);
       })
