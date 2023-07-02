@@ -1,12 +1,15 @@
 import { Component } from '@angular/core';
 import { faBox, faWaveSquare, faClock, faAngleUp, faAngleDown, faHeart, faBorderAll, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { faTrello } from '@fortawesome/free-brands-svg-icons';
-
+import { MeService } from '@services/me.service';
+import { Boards } from '@models/board.model';
 @Component({
   selector: 'app-boards',
   templateUrl: './boards.component.html'
 })
 export class BoardsComponent {
+
+  boards: Boards[] = [];
 
   faBox = faBox;
   faWaveSquare = faWaveSquare;
@@ -18,6 +21,14 @@ export class BoardsComponent {
   faBorderAll = faBorderAll;
   faUsers = faUsers;
   faGear = faBox;
+
+  constructor(
+    private meService: MeService
+  ) { }
+
+  ngOnInit(): void {
+    this.getMeBoards();
+  }
 
   items = [
     {
@@ -55,9 +66,10 @@ export class BoardsComponent {
     }
   ];
 
-  constructor() { }
-
-  ngOnInit(): void {
+  getMeBoards() {
+    this.meService.getMeBoards().subscribe(boards => {
+      this.boards = boards;
+    })
   }
 
 }
