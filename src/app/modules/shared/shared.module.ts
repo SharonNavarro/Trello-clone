@@ -5,17 +5,20 @@ import { TodoDialogComponent } from "./components/todo-dialog/todo-dialog.compon
 import { NavbarComponent } from "./components/navbar/navbar.component";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { CardColorComponent } from './components/card-color/card-color.component';
 
 @NgModule({
   declarations: [
     BtnComponent,
     TodoDialogComponent,
-    NavbarComponent
+    NavbarComponent,
+    CardColorComponent
   ],
   exports: [
     NavbarComponent,
     TodoDialogComponent,
-    BtnComponent
+    BtnComponent,
+    CardColorComponent
   ],
   imports: [
     CommonModule,
