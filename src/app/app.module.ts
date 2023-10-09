@@ -12,6 +12,7 @@ import { UsersService } from '@services/users.service';
 import { TokenInterceptor } from '@interceptors/token.interceptor';
 import { MeService } from '@services/me.service';
 import { BoardsService } from '@services/boards.service';
+import { CardsService } from '@services/cards.service';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { BoardsService } from '@services/boards.service';
     UsersService,
     MeService,
     BoardsService,
+    CardsService,
     {
       provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true
     }
