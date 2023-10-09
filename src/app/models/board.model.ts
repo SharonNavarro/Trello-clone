@@ -7,5 +7,5 @@ export interface Boards {
   title: string;
   backgroundColor: Colors;
   members: User[];
-  list: List[];
+  lists: List[];
 }

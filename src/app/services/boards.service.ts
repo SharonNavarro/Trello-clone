@@ -5,11 +5,13 @@ import { environment } from '@environments/environment';
 import { User } from '@models/user.model';
 import { checkToken } from '@interceptors/token.interceptor';
 import { Boards } from '@models/board.model';
+import { Card } from '@models/card.model';
 
 @Injectable()
 export class BoardsService {
 
   apiUrl = environment.API_URL;
+  bufferSpace = 65535;
 
   constructor(
     private http: HttpClient,
@@ -17,8 +19,35 @@ export class BoardsService {
   ) { }
 
   getBoard(id: Boards['id']) {
-    return this.http.get<Boards>(`${this.apiUrl}/api/v1/boards/${id}`, {
+    return this.http.get<Boards>(`${this.apiUrl}/boards/${id}`, {
       context: checkToken()
     });
+  }
+
+  getPosition(cards: Card[], currentIndex: number) {
+    if (cards.length === 1) {
+      // return 'is new';
+      return this.bufferSpace;
+    }
+
+    if (cards.length > 1 && currentIndex === 0) {
+      const onTopPosition = cards[1].position;
+      return onTopPosition / 2;
+    }
+
+    const lastIndex = cards.length - 1;
+    if (cards.length > 2 && currentIndex > 0 && currentIndex < lastIndex) {
+      const prevPosition = cards[currentIndex - 1].position;
+      const nextPosition = cards[currentIndex + 1].position;
+      return (prevPosition + nextPosition) / 2;
+    }
+
+    if (cards.length > 1 && currentIndex === lastIndex) {
+      const onBottomPosition = cards[lastIndex - 1].position;
+      return onBottomPosition + this.bufferSpace;
+    }
+
+    return 0;
+
   }
 }
