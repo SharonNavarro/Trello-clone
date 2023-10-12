@@ -80,7 +80,8 @@ export class BoardComponent implements OnInit {
 
     const position = this.boardsService.getPosition(event.container.data, event.currentIndex)
     const card = event.container.data[event.currentIndex];
-    this.updateCard(card, position);
+    const listId = event.container.id;
+    this.updateCard(card, position, listId);
   }
 
   addColumn() {
@@ -104,8 +105,8 @@ export class BoardComponent implements OnInit {
     })
   }
 
-  private updateCard(card: Card, position: number) {
-    this.cardsService.update(card.id, {position}).subscribe({
+  private updateCard(card: Card, position: number, listId: string | number) {
+    this.cardsService.update(card.id, {position, listId}).subscribe({
       next: cardUpdated => {
         console.log(cardUpdated)
       },
