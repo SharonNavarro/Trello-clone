@@ -8,6 +8,7 @@ import { BoardsService } from '@services/boards.service';
 import { Boards } from '@models/board.model';
 import { Card } from '@models/card.model';
 import { CardsService } from '@services/cards.service';
+import { List } from '@models/list.model';
 
 @Component({
   selector: 'app-board',
@@ -33,6 +34,7 @@ export class BoardComponent implements OnInit {
   done: ToDo[] = [];
 
   board: null | Boards = null;
+  showCardForm: boolean = false;
 
   constructor(
     private dialog: Dialog,
@@ -113,6 +115,14 @@ export class BoardComponent implements OnInit {
       error(err) {},
       complete() {},
     })
+  }
+
+  openFormCard(listSel: List){
+    if(this.board?.lists) {
+      this.board.lists.map(list => {
+        list.id === listSel.id ? list.showCardForm = true : list.showCardForm = false;
+      })
+    }
   }
 
 }
