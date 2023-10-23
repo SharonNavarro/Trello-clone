@@ -18,7 +18,19 @@
         </div>
         <div class="mt-5">
           <app-btn *ngIf="!list.showCardForm" color="light" (click)="openFormCard(list)">Add Board</app-btn>
-          <div *ngIf="list.showCardForm">
+          <div class="w-full" *ngIf="list.showCardForm">
+            <textarea
+              [formControl]="inputCard"
+              class="w-full rounded text-xs border-b-gray-400 border-b-2"
+              placeholder="Enter a title for this card..."
+            >
+            </textarea>
+            <div class="flex space-x-2">
+              <app-btn color="primary" (click)="createCard()">Add card</app-btn>
+              <app-btn color="light" (click)="closeCardForm(list)">
+                <fa-icon [icon]="faClose"></fa-icon>
+              </app-btn>
+            </div>
           </div>
         </div>
       </div>

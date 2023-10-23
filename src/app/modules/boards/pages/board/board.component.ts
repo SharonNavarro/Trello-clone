@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Dialog } from '@angular/cdk/dialog';
+import { faDoorClosed } from '@fortawesome/free-solid-svg-icons';
 import { TodoDialogComponent } from "@boards/components/todo-dialog/todo-dialog.component";
 import { ToDo } from '@models/todo.model';
 import { ActivatedRoute } from '@angular/router';
@@ -9,6 +10,7 @@ import { Boards } from '@models/board.model';
 import { Card } from '@models/card.model';
 import { CardsService } from '@services/cards.service';
 import { List } from '@models/list.model';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-board',
@@ -29,12 +31,19 @@ import { List } from '@models/list.model';
 })
 export class BoardComponent implements OnInit {
 
+  faClose = faDoorClosed;
+
   todos: ToDo[] = [];
   doing: ToDo[] = [];
   done: ToDo[] = [];
 
   board: null | Boards = null;
   showCardForm: boolean = false;
+
+  inputCard = new FormControl<string>('', {
+    nonNullable: true,
+    validators: [Validators.required]
+  })
 
   constructor(
     private dialog: Dialog,
@@ -123,6 +132,15 @@ export class BoardComponent implements OnInit {
         list.id === listSel.id ? list.showCardForm = true : list.showCardForm = false;
       })
     }
+  }
+
+  createCard() {
+    const title = this.inputCard.value;
+    console.log(title);
+  }
+
+  closeCardForm(list: List) {
+    list.showCardForm = false;
   }
 
 }

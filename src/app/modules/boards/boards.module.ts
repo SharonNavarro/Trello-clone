@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 import { BoardComponent } from './pages/board/board.component';
 import { BoardsComponent } from './pages/boards/boards.component';
 import { SharedModule } from '../shared/shared.module';
@@ -23,7 +24,8 @@ import { DialogModule } from '@angular/cdk/dialog';
     FontAwesomeModule,
     CdkAccordionModule,
     BoardsRoutingModule,
-    DialogModule
+    DialogModule,
+    ReactiveFormsModule
   ]
 })
 export class BoardsModule { }
