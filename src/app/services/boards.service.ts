@@ -36,7 +36,6 @@ export class BoardsService {
 
   getPosition(cards: Card[], currentIndex: number) {
     if (cards.length === 1) {
-      // return 'is new';
       return this.bufferSpace;
     }
 
@@ -58,6 +57,15 @@ export class BoardsService {
     }
 
     return 0;
+  }
 
+  getPositionNewCard(cards: Card[]) {
+    if (cards.length === 0) {
+      return this.bufferSpace;
+    }
+
+    const lastIndex = cards.length - 1;
+    const onBottomPosition = cards[lastIndex].position;
+    return onBottomPosition + this.bufferSpace;
   }
 }

@@ -43,7 +43,14 @@ export class BoardComponent implements OnInit {
   inputCard = new FormControl<string>('', {
     nonNullable: true,
     validators: [Validators.required]
-  })
+  });
+
+  inputList = new FormControl<string>('', {
+    nonNullable: true,
+    validators: [Validators.required]
+  });
+
+  showListForm: boolean = false;
 
   constructor(
     private dialog: Dialog,
@@ -95,7 +102,7 @@ export class BoardComponent implements OnInit {
     this.updateCard(card, position, listId);
   }
 
-  addColumn() {
+  addList() {
     // this.columns.push({
     //   title: 'New Column',
     //   todos: []
@@ -134,9 +141,19 @@ export class BoardComponent implements OnInit {
     }
   }
 
-  createCard() {
+  createCard(list: List) {
     const title = this.inputCard.value;
-    console.log(title);
+    if (this.board) {
+      this.cardsService.create({
+        title,
+        listId: list.id,
+        boardId: this.board.id,
+        position: this.boardsService.getPositionNewCard(list.cards)
+      }).subscribe(card => {
+        list.cards.push(card);
+        this.inputCard.setValue('');
+      })
+    }
   }
 
   closeCardForm(list: List) {
