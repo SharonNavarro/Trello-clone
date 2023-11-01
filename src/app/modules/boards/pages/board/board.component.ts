@@ -11,6 +11,8 @@ import { Card } from '@models/card.model';
 import { CardsService } from '@services/cards.service';
 import { List } from '@models/list.model';
 import { FormControl, Validators } from '@angular/forms';
+import { ListService } from '@services/list.service';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-board',
@@ -56,7 +58,8 @@ export class BoardComponent implements OnInit {
     private dialog: Dialog,
     private activatedRoute: ActivatedRoute,
     private boardsService: BoardsService,
-    private cardsService: CardsService
+    private cardsService: CardsService,
+    private listService: ListService
     ) { }
 
   ngOnInit(): void {
@@ -103,10 +106,25 @@ export class BoardComponent implements OnInit {
   }
 
   addList() {
-    // this.columns.push({
-    //   title: 'New Column',
-    //   todos: []
-    // });
+    const title = this.inputList.value;
+    if (this.board) {
+      this.listService.create({
+        title,
+        boardId: this.board.id,
+        position: this.boardsService.getPositionNewItem(this.board.lists)
+      })
+      .pipe(
+        tap(res => {
+          this.board?.lists.push({
+            ...res,
+            cards: []
+          });
+          this.showListForm = true;
+          this.inputList.setValue('');
+        })
+      )
+      .subscribe();
+    }
   }
 
   openDialog(card: Card) {
@@ -148,7 +166,7 @@ export class BoardComponent implements OnInit {
         title,
         listId: list.id,
         boardId: this.board.id,
-        position: this.boardsService.getPositionNewCard(list.cards)
+        position: this.boardsService.getPositionNewItem(list.cards)
       }).subscribe(card => {
         list.cards.push(card);
         this.inputCard.setValue('');
