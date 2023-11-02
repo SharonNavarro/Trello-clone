@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Dialog } from '@angular/cdk/dialog';
 import { faDoorClosed } from '@fortawesome/free-solid-svg-icons';
@@ -13,6 +13,7 @@ import { List } from '@models/list.model';
 import { FormControl, Validators } from '@angular/forms';
 import { ListService } from '@services/list.service';
 import { tap } from 'rxjs';
+import { COLORS } from '@models/colors.model';
 
 @Component({
   selector: 'app-board',
@@ -31,7 +32,7 @@ import { tap } from 'rxjs';
     `
   ]
 })
-export class BoardComponent implements OnInit {
+export class BoardComponent implements OnInit, OnDestroy {
 
   faClose = faDoorClosed;
 
@@ -54,6 +55,8 @@ export class BoardComponent implements OnInit {
 
   showListForm: boolean = false;
 
+  colorBackgrounds = COLORS;
+
   constructor(
     private dialog: Dialog,
     private activatedRoute: ActivatedRoute,
@@ -72,15 +75,14 @@ export class BoardComponent implements OnInit {
   }
 
   getBoard(id: string) {
-    this.boardsService.getBoard(id).subscribe({
-      next: value => {
-        this.board = value;
-      }, error(err) {
-
-      }, complete() {
-
-      },
-    })
+    this.boardsService.getBoard(id)
+    .pipe(
+      tap(res => {
+        this.board = res;
+        this.boardsService.setBackgroundColors(this.board.backgroundColor);
+      })
+    )
+    .subscribe()
   }
 
   drop(event: CdkDragDrop<Card[]>) {
@@ -153,7 +155,7 @@ export class BoardComponent implements OnInit {
 
   openFormCard(listSel: List){
     if(this.board?.lists) {
-      this.board.lists.map(list => {
+      this.board.lists.forEach(list => {
         list.id === listSel.id ? list.showCardForm = true : list.showCardForm = false;
       })
     }
@@ -176,6 +178,18 @@ export class BoardComponent implements OnInit {
 
   closeCardForm(list: List) {
     list.showCardForm = false;
+  }
+
+  get colors() {
+    if (this.board) {
+      const classes = this.colorBackgrounds[this.board.backgroundColor];
+      return classes ? classes : {};
+    }
+    return {};
+  }
+
+  ngOnDestroy(): void {
+this.boardsService.setBackgroundColors('sky');
   }
 
 }

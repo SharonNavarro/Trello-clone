@@ -3,6 +3,7 @@ import { faBox, faWaveSquare, faClock, faAngleUp, faAngleDown, faHeart, faBorder
 import { faTrello } from '@fortawesome/free-brands-svg-icons';
 import { MeService } from '@services/me.service';
 import { Boards } from '@models/board.model';
+import { BehaviorSubject } from 'rxjs';
 @Component({
   selector: 'app-boards',
   templateUrl: './boards.component.html'

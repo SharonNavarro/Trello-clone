@@ -6,8 +6,11 @@ import {
   faClone,
   faAngleDown
 } from '@fortawesome/free-solid-svg-icons';
+import { Colors, NAVBAR_BACKGROUNDS } from '@models/colors.model';
 import { User } from '@models/user.model';
 import { AuthService } from '@services/auth.service';
+import { BoardsService } from '@services/boards.service';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -22,14 +25,25 @@ export class NavbarComponent {
 
   isOpenOverlayAvatar = false;
   isOpenOverlayBoards = false;
-  isOpenOverlayCreateBoard= false;
+  isOpenOverlayCreateBoard = false;
 
-  user$= this.authService.user$;
+  user$ = this.authService.user$;
+  navbarBackgroundColor: Colors = 'sky';
+  navbarColors = NAVBAR_BACKGROUNDS;
 
   constructor(
     private authService: AuthService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private boardService: BoardsService
+  ) {
+    this.boardService.backgroundColors$
+      .pipe(
+        tap(res => {
+          this.navbarBackgroundColor = res;
+        })
+      )
+      .subscribe();
+  }
 
   logout() {
     this.authService.logout();
@@ -38,5 +52,10 @@ export class NavbarComponent {
 
   close(event: boolean) {
     this.isOpenOverlayCreateBoard = event;
+  }
+
+  get colors() {
+    const classes = this.navbarColors[this.navbarBackgroundColor];
+    return classes ? classes : {};
   }
 }
