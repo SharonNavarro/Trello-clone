@@ -29,9 +29,9 @@ export const COLORS: ObjColors = {
     'text-white': true,
   },
   gray: {
-    'bg-gray-700': true,
-    'hover:bg-gray-800': true,
-    'text-white': true,
+    'bg-gray-50': true,
+    'hover:bg-gray-300': true,
+    'text-gray-700': true,
   },
   success: {
     'bg-success-700': true,
@@ -76,7 +76,7 @@ export const BACKGROUNDS: ObjColors = {
     'bg-violet-600': true
   },
   gray: {
-    'bg-gray-600': true
+    'bg-gray-100': true
   },
   success: {
     'bg-success-600': true
@@ -109,7 +109,7 @@ export const NAVBAR_BACKGROUNDS: ObjColors = {
     'bg-violet-700': true
   },
   gray: {
-    'bg-gray-700': true
+    'bg-gray-50': true
   },
   success: {
     'bg-success-700': true

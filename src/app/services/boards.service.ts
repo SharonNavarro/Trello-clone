@@ -15,7 +15,7 @@ export class BoardsService {
 
   apiUrl = environment.API_URL;
   bufferSpace = 65535;
-  backgroundColors$ = new BehaviorSubject<Colors>('sky')
+  backgroundColors$ = new BehaviorSubject<Colors>('gray')
 
   constructor(
     private http: HttpClient,

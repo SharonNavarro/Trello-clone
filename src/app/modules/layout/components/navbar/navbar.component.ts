@@ -16,7 +16,7 @@ import { tap } from 'rxjs';
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
 
   faBell = faBell;
   faInfoCircle = faInfoCircle;
@@ -28,8 +28,11 @@ export class NavbarComponent {
   isOpenOverlayCreateBoard = false;
 
   user$ = this.authService.user$;
-  navbarBackgroundColor: Colors = 'sky';
+  navbarBackgroundColor: Colors = 'gray';
   navbarColors = NAVBAR_BACKGROUNDS;
+
+  isDarkTheme: boolean = false;
+  imageLogo!: string;
 
   constructor(
     private authService: AuthService,
@@ -40,9 +43,38 @@ export class NavbarComponent {
       .pipe(
         tap(res => {
           this.navbarBackgroundColor = res;
+          console.log(this.navbarBackgroundColor);
         })
       )
       .subscribe();
+  }
+
+  ngOnInit() {
+    this.loadTheme();
+  }
+
+  toggleTheme() {
+    this.isDarkTheme = !this.isDarkTheme;
+    this.updateTheme();
+  }
+
+  loadTheme() {
+    this.isDarkTheme = localStorage.getItem('color-theme') === 'dark' || (!localStorage.getItem('color-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    this.updateTheme();
+  }
+
+  updateTheme() {
+    const rootElement = document.documentElement;
+
+    if (this.isDarkTheme) {
+      this.imageLogo = "/assets/images/logo/logo-gradient-white-trello.png";
+      rootElement.classList.add('dark');
+      localStorage.setItem('color-theme', 'dark');
+    } else {
+      this.imageLogo = "/assets/images/logo/logo-gradient-neutral-trello.png";
+      rootElement.classList.remove('dark');
+      localStorage.setItem('color-theme', 'light');
+    }
   }
 
   logout() {
